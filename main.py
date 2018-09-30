@@ -18,6 +18,10 @@ def get_current_watchlist():
     # returns user's current watchlist--hard coded for now
     return [ "Star Wars", "Minions", "Freaky Friday", "My Favorite Martian" ]
 
+def get_watched_movies():
+    # return watched movies (Hard code)
+    return ["Start Wars","Minions"]
+
 # TODO: 
 # Modify "My Watchlist" so that you eliminate the need for the "crossoff" form in edit.html. 
 # Now, next to every list item/movie listed in "My Watchlist" you should display a button that says "I Watched it!". 
@@ -82,6 +86,17 @@ def add_movie():
     new_movie_escaped = cgi.escape(new_movie, quote=True)
 
     return render_template('add-confirmation.html', movie=new_movie)
+
+@app.route("/ratings")
+def movie_ratings():
+    encoded_error = request.args.get("error")
+    return render_template('rating.html',watchedList=get_watched_movies(),error=encoded_error and cgi.escape(encoded_error, quote=True))
+
+@app.route("/rating-confirmation",methods=['POST'])
+def rate_movie():
+    watched_movie = request.form['watched']
+    rating = request.form['rate']
+    return render_template("rating-confirmation.html",movie=watched_movie,rating=rating)
 
 
 @app.route("/")

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+     
+    {% if rating != 'none' %}
+    <p>
+        You gave <strong>{{ movie }}</strong> a rating of {{rating}} stars.
+   </p>
+    {% else %}
+
+    <p>You do not rate <strong>{{movie}}. </strong> <a href="/ratings">Please try again.</a></p>
+    
+    {% endif%}
+
+
+{% endblock %}
